@@ -20,11 +20,11 @@ it('renders', () => {
 });
 
 it('renders null value', () => {
-	let field = renderer
-		.create(<TextField {...props} value={null} />)
-		.toJSON();
-	expect(field)
-		.toMatchSnapshot();
+  let field = renderer
+    .create(<TextField {...props} value={null}/>)
+    .toJSON();
+  expect(field)
+    .toMatchSnapshot();
 });
 
 it('renders value', () => {
