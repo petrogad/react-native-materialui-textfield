@@ -3,13 +3,15 @@ import React, { PureComponent } from 'react';
 import {
   View,
   Text,
-  TextInput,
+  //TextInput,
   Animated,
   StyleSheet,
   Platform,
   ViewPropTypes,
   I18nManager,
 } from 'react-native';
+
+import { TextInputMask } from 'react-native-masked-text'
 
 import RN from 'react-native/package.json';
 
@@ -53,7 +55,7 @@ export default class TextField extends PureComponent {
   };
 
   static propTypes = {
-    ...TextInput.propTypes,
+    ...TextInputMask.propTypes,
 
     animationDuration: PropTypes.number,
 
@@ -521,7 +523,7 @@ export default class TextField extends PureComponent {
           <View style={styles.row}>
             {this.renderAffix('prefix', active, focused)}
 
-            <TextInput
+            <TextInputMask
               style={[styles.input, inputStyle, inputStyleOverrides]}
               selectionColor={tintColor}
 

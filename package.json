@@ -33,10 +33,11 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/petrogad/react-native-materialui-textfield.git"
+    "url": "git://github.com/caiornpstrf/react-native-materialui-textfield.git"
   },
   "dependencies": {
-    "prop-types": "^15.5.9"
+    "prop-types": "^15.5.9",
+    "react-native-masked-text": "^1.10.1"
   },
   "peerDependencies": {
     "react": "*",
