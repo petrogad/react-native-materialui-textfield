@@ -87,6 +87,7 @@ export default class TextField extends PureComponent {
     disabledLineType: Line.propTypes.type,
     disabledLineWidth: PropTypes.number,
 
+    renderLeftAccessory: PropTypes.func,
     renderAccessory: PropTypes.func,
 
     prefix: PropTypes.string,
@@ -283,17 +284,18 @@ export default class TextField extends PureComponent {
     }
   }
 
-  renderAccessory() {
-    let { renderAccessory } = this.props;
+  renderAccessory(type, style = {}) {
+    let { renderLeftAccessory, renderAccessory } = this.props;
+    const renderAccessoryComponent = type === 'right' ? renderAccessory : renderLeftAccessory;
 
-    if ('function' !== typeof renderAccessory) {
+    if ('function' !== typeof renderAccessoryComponent) {
       return null;
     }
 
     return (
-      <View style={styles.accessory}>
-        {renderAccessory()}
-      </View>
+      <Animated.View style={[styles.accessory, style]}>
+        {renderAccessoryComponent()}
+      </Animated.View>
     );
   }
 
@@ -451,6 +453,14 @@ export default class TextField extends PureComponent {
 
       fontSize: titleFontSize,
     };
+
+    let accessoryStyle = {
+      opacity: focus.interpolate({
+        inputRange: [-1, 0, 1],
+        outputRange: [1, active ? 1 : 0, 1],
+      }),
+    };
+
     let titleFontSizeMultiplier = this.props.helpersNumberOfLines;
 
     let helperContainerStyle = {
@@ -519,6 +529,7 @@ export default class TextField extends PureComponent {
           <Label {...labelProps}>{label}</Label>
 
           <View style={styles.row}>
+            {this.renderAccessory('left', accessoryStyle)}
             {this.renderAffix('prefix', active, focused)}
 
             <TextInput
@@ -538,7 +549,7 @@ export default class TextField extends PureComponent {
             />
 
             {this.renderAffix('suffix', active, focused)}
-            {this.renderAccessory()}
+            {this.renderAccessory('right')}
           </View>
         </Animated.View>
 
